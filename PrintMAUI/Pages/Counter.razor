@@ -1,0 +1,79 @@
+﻿@page "/counter"
+@using System.Net.Http.Headers;
+@using Newtonsoft.Json
+@inject NavigationManager navigationManager
+
+<h1>Printer Image </h1>
+<p>@message</p>
+<p>@path</p>
+<img src="data:image/jpeg;base64,@imageBytes" height="200px" width="200px"/>
+<button class="btn btn-primary" @onclick="IncrementCount">Print Something</button>
+
+@code {
+    private int currentCount = 0;
+    private string path;
+    private string message;
+    private byte[] imageBytes;
+    private byte[] pdfBytes;
+
+    protected async override Task OnInitializedAsync()
+    {
+        //try
+        //{
+        //    PrintRequest requestPrint = new PrintRequest();
+        //    requestPrint.ReportName = "SalesOrder_MMN.trdp";
+        //    requestPrint.ReportParams = new List<RepParamsURL>();
+        //    requestPrint.ReportParams.Add(new RepParamsURL()
+        //        {
+        //            param = "CKy",
+        //            paramContent = "156"
+        //        });
+        //    requestPrint.ReportParams.Add(new RepParamsURL()
+        //        {
+        //            param = "UsrKy",
+        //            paramContent = "343571"
+        //        });
+        //    requestPrint.ReportParams.Add(new RepParamsURL()
+        //        {
+        //            param = "UsrId",
+        //            paramContent = "Gayantha.BL"
+        //        });
+        //    requestPrint.ReportParams.Add(new RepParamsURL()
+        //        {
+        //            param = "OrdKy",
+        //            paramContent = "1230769"
+        //        });
+        //    //var jsonBody
+
+        //    var options = new RestClientOptions("https://localhost:7036/api");
+        //    var client = new RestClient(options);
+        //    var jsonData = JsonConvert.SerializeObject(requestPrint);
+        //    var request = new RestRequest("/ReportPrinter/printpdf").AddJsonBody(jsonData);
+        //    request.AddHeader("Content-Type", "application/json");
+        //    request.AddHeader("Accept", "*/*");
+        //    var response = await client.PostAsync<string>(request);
+        //    message = response;
+        //    //imageBytes = arrayDatas.ReturnBytes();
+        //}catch(Exception ex)
+        //{
+
+        //}
+        pdfBytes = arrayDatas.GetPDFBytes();
+        return;
+    }
+
+    private async void IncrementCount()
+    {
+        bool res = await _printCaller.printPDF(imageBytes);
+        if (res)
+        {
+            message = "Success!";
+            StateHasChanged();
+        }
+        else
+        {
+            message = "Failed!";
+            StateHasChanged();
+        }
+    }
+}
