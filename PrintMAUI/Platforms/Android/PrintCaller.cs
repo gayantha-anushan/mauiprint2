@@ -48,9 +48,9 @@ namespace PrintMAUI.Platforms
                 //{
                 //    StartActivity(Intent.CreateChooser(intent, "PDF Viewer intent"));
                 //});
-                //PrintManager printManager = Platform.CurrentActivity.GetSystemService(Android.Content.Context.PrintService).JavaCast<PrintManager>();
-                //string jobName = "simple Print Job";
-                //printManager.Print(jobName, new CustomPrintDocumentAdapter(pdfBytes), null);
+                PrintManager printManager = Platform.CurrentActivity.GetSystemService(Android.Content.Context.PrintService).JavaCast<PrintManager>();
+                string jobName = "simple Print Job";
+                printManager.Print(jobName, new CustomPrintDocumentAdapter(pdfBytes), null);
                 return true;
             }catch(Exception ex)
             {
