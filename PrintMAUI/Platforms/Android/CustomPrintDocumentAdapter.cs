@@ -15,16 +15,19 @@ namespace PrintMAUI.Platforms
 {
     public class CustomPrintDocumentAdapter : PrintDocumentAdapter
     {
-        //private byte[] data;
+        private byte[] data;
         private int totalPages = 0;
         PrintedPdfDocument pdfDocument;
         public CustomPrintDocumentAdapter(byte[] data)
         {
-            //this.data = data;
+            this.data = data;
         }
         public override void OnLayout(PrintAttributes oldAttributes, PrintAttributes newAttributes, CancellationSignal cancellationSignal, LayoutResultCallback callback, Bundle extras)
         {
             pdfDocument = new PrintedPdfDocument(Platform.CurrentActivity,newAttributes);
+
+            PrintedPdfDocument.Page page = pdfDocument.StartPage(1);
+            
 
             if (cancellationSignal.IsCanceled)
             {

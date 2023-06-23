@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Graphics;
 using Android.Print;
 using Android.PrintServices;
@@ -26,7 +27,7 @@ namespace PrintMAUI.Platforms
 
                 Bitmap bitmap = await BitmapFactory.DecodeByteArrayAsync(bitmapBytes, 0, bitmapBytes.Length);
 
-                photoPrinter.PrintBitmap("Testing Print for BL", bitmap);
+                photoPrinter.PrintBitmap("Testing Print for BL 2", bitmap);
                 return true;
             }catch (Exception ex)
             {
@@ -38,10 +39,18 @@ namespace PrintMAUI.Platforms
         {
             try
             {
-                
-                PrintManager printManager = Platform.CurrentActivity.GetSystemService(Android.Content.Context.PrintService).JavaCast<PrintManager>();
-                string jobName = "simple Print Job";
-                printManager.Print(jobName, new CustomPrintDocumentAdapter(pdfBytes), null);
+                ////Method 2 Failed
+                //Intent intent = new Intent(Intent.ActionSend);
+                //intent.PutExtra(Intent.ExtraStream, pdfBytes);
+                //intent.SetType("application/pdf");
+
+                //RunOnUiThread(() =>
+                //{
+                //    StartActivity(Intent.CreateChooser(intent, "PDF Viewer intent"));
+                //});
+                //PrintManager printManager = Platform.CurrentActivity.GetSystemService(Android.Content.Context.PrintService).JavaCast<PrintManager>();
+                //string jobName = "simple Print Job";
+                //printManager.Print(jobName, new CustomPrintDocumentAdapter(pdfBytes), null);
                 return true;
             }catch(Exception ex)
             {
